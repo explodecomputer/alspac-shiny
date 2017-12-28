@@ -20,16 +20,19 @@ labs <- labs[labs > 10] %>% sort(decreasing=TRUE)
 
 print_rows <- function(s, dat)
 {
-	cat(
-		paste0(dat$Variable[s], ": ", dat$Details[s]), sep='\n'
-	)
+	if(length(s) == 0)
+	{
+		cat("(none)")		
+	} else {
+		cat(paste0(dat$Variable[s], ": ", dat$Details[s]), sep='\n')
+	}
 }
 
 shinyServer(function(input, output, session) {
 
 	output$laba <- 	renderUI({
 		HTML(sapply(names(labs), 
-			function(x) paste0("<button class='btn btn-default action-button btn-xs' style='margin-bottom: 3px'>", x, " (", labs[names(labs) == x], ")</button>")) %>%
+			function(x) paste0("<button id='category", which(names(labs) == x)[1], "' action='toggle' class='btn btn-default action-button btn-xs' style='margin-bottom: 3px'>", x, " (", labs[names(labs) == x], ")</button>")) %>%
 			paste(collapse=" "))
 	})
 
@@ -38,18 +41,28 @@ shinyServer(function(input, output, session) {
 		updateNavbarPage(session, "mainnav", selected="variablespage")
 	})
 
+	observeEvent(input$variablespage,
+	{
+		updateNavbarPage(session, "mainnav", selected="variablespage")
+	})
 
 
 	output$x3 = DT::renderDataTable(dat)
+
+
+	observeEvent(input$category1, {
+		output$x3 = DT::renderDataTable(subset(dat, `Label 1` == "Quest"))
+
+	})
+
+
 	output$x4 = renderPrint({
 	s = input$x3_rows_selected
-	if (length(s)) {
-		cat('These rows are currently selected:\n\n')
-		print_rows(s, dat)
-		output$makebutton <- renderUI(
-			downloadButton('downloadData', 'Download variable list')
-		)
-	}
+	cat('These rows are currently selected:\n\n')
+	print_rows(s, dat)
+	output$makebutton <- renderUI(
+		downloadButton('downloadData', 'Download variable list')
+	)
 	})
 
 

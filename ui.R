@@ -94,21 +94,31 @@ aboutpage <- function()
 			column(6,
 				fluidRow(column(12, panel_div(
 					class_type="primary", 
-					panel_title="About ALSPAC",
+					panel_title="The ALSPAC data resource",
 					content=
 						div(
-							tags$p("The Avon Longitudinal Study of Parents and Children (ALSPAC), also known as Children of the 90s, is a world-leading birth cohort study, charting the health of 14,500 families in the Bristol area. You can find full information about the cohort ", tags$a("here", href="https://www.bristol.ac.uk/alspac/"))
-						)
+							fluidRow(
+								column(12, 
+							tags$p("The Avon Longitudinal Study of Parents and Children (ALSPAC), also known as Children of the 90s, is a world-leading birth cohort study, charting the health of 14,500 families in the Bristol area. You can find full information about the cohort ", tags$a("here", href="https://www.bristol.ac.uk/alspac/")),
+							HTML("<a class='btn btn-default action-button' href='https://www.bristol.ac.uk/alspac/' target='_blank'>ALSPAC webpage</a>"),
+							tags$p()
+						)),
+						fluidRow(column(12,
+							tags$p("For more than two decades clinic and questionnaire data has been collected from the participants."),
+							tags$p("This search tool is a quick and abridged version of a much more extensive data dictionary. You can find a lot more detail abou these data", tags$a("here", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
+							HTML("<a class='btn btn-default action-button' href='http://www.bristol.ac.uk/alspac/researchers/our-data/' target='_blank'>Main data page</a>")
+						)))
 				))),
+
 				fluidRow(column(12, panel_div(
 					class_type="primary", 
 					panel_title="The variable search tool",
 					content=
 						div(
-							tags$p("For more than two decades clinic and questionnaire data has been collected from the participants."),
-							tags$p("There are currently ", tags$strong(nrow(dat)), " variables that are currently available to researchers."),
+							tags$p("There are ", tags$strong(nrow(dat)), " variables that are currently available to researchers."),
 							tags$p("Use this resource to search through the variables, obtain their identifiers and number of available samples."),
-							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require.")
+							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require."),
+							bsButton(inputId="variablespage", label="Search variables")
 						)
 				)))
 			),
@@ -119,10 +129,10 @@ aboutpage <- function()
 					content=
 						div(
 							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="Something happened"
+								content="This existing dataset was updated"
 							),
 							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="Something happened"
+								content="This new dataset was added"
 							),
 							panel_div(class_type="warning", panel_title="01/01/2017",
 								content="Something happened"
@@ -144,23 +154,33 @@ variablespage <- function()
 {
 	tabPanel(title="Variables", value="variablespage", icon = icon("search"),
 		fluidRow(
-			column(8,
-				tags$div(class="labeltags text-center",
-					uiOutput("laba")
-				)
+			column(9,
+				fluidRow(
+					column(12,
+						h3("Categories"),
+						tags$div(class="labeltags text-center",
+							uiOutput("laba")
+						)
+					)
+				),
+				fluidRow(column(12, 
+					DT::dataTableOutput('x3')
+				))
 			),
-			column(4,
-      	verbatimTextOutput('x4'),
-      	uiOutput("makebutton")
+			column(3,
+				fluidRow(
+					column(12, 
+						h3("Instructions"),
+						p("Use the search box to filter on keywords or terms. Click on rows to select those variables. Click the Download button to download a csv of the variables that you have selected.")
+					)
+				),
+				fluidRow(
+					column(12,
+		      	verbatimTextOutput('x4'),
+  		    	uiOutput("makebutton")
+  		    )
+				)
 			)
-		),
-		# fluidRow(
-		# 	column(12,
-		# 		typeaheadInput("typeahead_search2", "Search", "", choices=dat$lab, items=20, minLength=2)
-		# 	)
-		# ),
-		fluidRow(
-			column(12, DT::dataTableOutput('x3'))
 		)
 	)
 }
