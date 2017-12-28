@@ -1,14 +1,22 @@
 library(shiny)
 library(DT)
 library(alspac)
+
 data(current)
 data(useful)
+
 
 current <- subset(current, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
 useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
 
 dat <- rbind(current, useful)
 names(dat) <- c("Variable", "Details", "Counts", "Type", "Release", "Label 1", "Label 2", "Label 3")
+
+labs <- table(c(
+	dat$"Label 1", dat$"Label 2", dat$"Label 3"
+))
+labs <- labs[labs > 10] %>% sort(decreasing=TRUE)
+
 
 print_rows <- function(s, dat)
 {
@@ -18,6 +26,20 @@ print_rows <- function(s, dat)
 }
 
 shinyServer(function(input, output, session) {
+
+	output$laba <- 	renderUI({
+		HTML(sapply(names(labs), 
+			function(x) paste0("<button class='btn btn-default action-button btn-xs' style='margin-bottom: 3px'>", x, " (", labs[names(labs) == x], ")</button>")) %>%
+			paste(collapse=" "))
+	})
+
+	observeEvent(input$typeahead_search,
+	{
+		updateNavbarPage(session, "mainnav", selected="variablespage")
+	})
+
+
+
 	output$x3 = DT::renderDataTable(dat)
 	output$x4 = renderPrint({
 	s = input$x3_rows_selected
@@ -29,6 +51,7 @@ shinyServer(function(input, output, session) {
 		)
 	}
 	})
+
 
 	output$downloadData <- downloadHandler(
 		filename = function() {
