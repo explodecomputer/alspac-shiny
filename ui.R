@@ -6,6 +6,10 @@ library(alspac)
 library(shinythemes)
 
 
+paste0(
+paste(scan("version.txt", what=character()), collapse=" "),
+" (", format(as.Date(file.info("version.txt")$mtime,), "%d %B %Y"), ")")
+
 aboutpage <- function()
 {
 	tabPanel(title="About", value="aboutpage", icon = icon("cog"),
@@ -16,8 +20,8 @@ aboutpage <- function()
 			position="bottom",
 			h1("Search for variables in the ALSPAC data dictionary"),
 			p(
-				tags$strong("App version: "), "0.1.0", tags$br(),
-				tags$strong("Data version: "), "0.1.0"
+				tags$strong("App version: "), paste0(paste(scan("version.txt", what=character()), collapse=" ")," (", format(as.Date(file.info("version.txt")$mtime,), "%d %B %Y"), ")"), tags$br(),
+				tags$strong("Data version: "), as.character(packageVersion('alspac'))
 			)
 			# typeaheadInput("typeahead_search", "Search", "", choices=dat$lab, items=20, minLength=2)
 		),
