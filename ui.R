@@ -79,7 +79,7 @@ aboutpage <- function()
 			)
 		),
 		fluidRow(column(12, 
-			p("Source code at ", tags$a("https://github.com/explodecomputer/alspac-dt", href="https://github.com/explodecomputer/alspac-dt"))
+			p("Source code at ", tags$a("https://github.com/explodecomputer/alspac-shiny", href="https://github.com/explodecomputer/alspac-shiny"))
 		))
 	)
 }
