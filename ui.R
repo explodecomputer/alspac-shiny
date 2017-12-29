@@ -1,80 +1,9 @@
-# library(shiny)
-# library(shinyBS)
-# library(shinyLP)
 library(shiny)
 library(shinyBS)
 library(shinyLP)
 library(shinyTypeahead)
 library(alspac)
 library(shinythemes)
-
-data(current)
-data(useful)
-current <- subset(current, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
-useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
-
-dat <- rbind(current, useful)
-print(head(dat))
-
-
-
-# shinyUI(
-#   fluidPage(
-#     div(style="padding: 1px 0px; width: '100%'",
-#         titlePanel(
-#           title="", windowTitle="ALSPAC data dictionary"
-#         )
-#     ),
-
-
-#     navbarPage(title=div(img(src="alspac.png"), "ALSPAC data dictionary"),
-#       inverse=FALSE,
-#       theme = shinytheme("united"),
-
-
-#   typeaheadInput("typeahead_search", "Search", "", choices=dat$lab, items=20, minLength=2),
-#   h1('Browse variables available in ALSPAC'),
-#   tabsetPanel(
-#     tabPanel("Variables", 
-#       fluidRow(
-#         column(8, DT::dataTableOutput('x3')),
-#         column(4, verbatimTextOutput('x4'),
-#         	uiOutput("makebutton")
-#         )
-#       )
-#     ),
-#   	tabPanel("About",
-#       fluidRow(
-#       	column(4,
-#       	  p("This website can be used to browse the available variables for the ALSPAC data resource."),
-#       	  p("To request the variables of interest, select them by clicking on the relevant rows in the table, and then click 'Export'. This will create an Excel file that you can send to the data team.")
-#       	)
-#       )
-#     )
-#   )
-# )))
-
-
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
-# Define UI for application
-
-# Include a fliudPage above the navbar to incorporate a icon in the header
-# Source: http://stackoverflow.com/a/24764483
-# fluidPage(
-# div(style="padding: 1px 0px; width: '100%'",
-# 	titlePanel(
-# 		title="", windowTitle="ALSPAC data dictionary"
-# 	)
-# ),
-
-
 
 
 aboutpage <- function()
@@ -115,8 +44,9 @@ aboutpage <- function()
 					panel_title="The variable search tool",
 					content=
 						div(
-							tags$p("There are ", tags$strong(nrow(dat)), " variables that are currently available to researchers."),
-							tags$p("Use this resource to search through the variables, obtain their identifiers and number of available samples."),
+							uiOutput("variablecount"),
+							tags$p("This website is a wrapper for the ALSPAC R package, which can be found ", tags$a("here", href="https://github.com/explodecomputer/alspac"), ". Direct users can use the R package to find and extract ALSPAC phenotype data."),
+							tags$p("Use this website to search through the variables, obtain their identifiers and number of available samples."),
 							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require."),
 							bsButton(inputId="variablespage", label="Search variables")
 						)
@@ -124,7 +54,7 @@ aboutpage <- function()
 			),
 			column(6,
 				panel_div(
-					class_type="secondary",
+					class_type="primary",
 					panel_title="News",
 					content=
 						div(
@@ -143,11 +73,12 @@ aboutpage <- function()
 						)
 				)
 			)
-		)
+		),
+		fluidRow(column(12, 
+			p("Source code at ", tags$a("https://github.com/explodecomputer/alspac-dt", href="https://github.com/explodecomputer/alspac-dt"))
+		))
 	)
 }
-
-library(dplyr)
 
 
 variablespage <- function()
@@ -155,14 +86,14 @@ variablespage <- function()
 	tabPanel(title="Variables", value="variablespage", icon = icon("search"),
 		fluidRow(
 			column(9,
-				fluidRow(
-					column(12,
-						h3("Categories"),
-						tags$div(class="labeltags text-center",
-							uiOutput("laba")
-						)
-					)
-				),
+				# fluidRow(
+				# 	column(12,
+				# 		h3("Categories"),
+				# 		tags$div(class="labeltags text-center",
+				# 			uiOutput("laba")
+				# 		)
+				# 	)
+				# ),
 				fluidRow(column(12, 
 					DT::dataTableOutput('x3')
 				))
@@ -171,7 +102,8 @@ variablespage <- function()
 				fluidRow(
 					column(12, 
 						h3("Instructions"),
-						p("Use the search box to filter on keywords or terms. Click on rows to select those variables. Click the Download button to download a csv of the variables that you have selected.")
+						p("Use the search box to filter on keywords or terms. Click on rows to select those variables. Click the Download button to download a csv of the variables that you have selected."),
+						p("These rows are currently selected:")
 					)
 				),
 				fluidRow(
@@ -186,24 +118,15 @@ variablespage <- function()
 }
 
 
-shinyUI(
+shinyUI(navbarPage(
 
-navbarPage(
 	id="mainnav",
 	title=div("ALSPAC data dictionary"),
 	inverse = FALSE, # for diff color view
 	theme = shinytheme("united"),
 
-
 	aboutpage(),
 	variablespage()
 
-
-
-
-
-
-
-	)
-)
+))
 	

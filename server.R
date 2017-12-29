@@ -1,16 +1,20 @@
 library(shiny)
 library(DT)
 library(alspac)
+library(dplyr)
 
 data(current)
 data(useful)
 
 
-current <- subset(current, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
-useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(name, lab, counts, type, cat1, cat2, cat3, cat4))
+current <- subset(current, ! name %in% c("aln", "qlet"), select=c(obj, name, lab, counts, type, cat1, cat2, cat3, cat4))
+useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(obj, name, lab, counts, type, cat1, cat2, cat3, cat4))
 
 dat <- rbind(current, useful)
-names(dat) <- c("Variable", "Details", "Counts", "Type", "Release", "Label 1", "Label 2", "Label 3")
+dat$obj <- gsub(".dta", "", dat$obj)
+names(dat) <- c("Dataset", "Variable", "Details", "Counts", "Type", "Release", "Label 1", "Label 2", "Label 3")
+
+rownames(dat) <- NULL
 
 labs <- table(c(
 	dat$"Label 1", dat$"Label 2", dat$"Label 3"
@@ -29,6 +33,10 @@ print_rows <- function(s, dat)
 }
 
 shinyServer(function(input, output, session) {
+
+	output$variablecount <- renderUI({
+		HTML("<p>There are <strong>", nrow(dat), "</strong> variables that are currently available to researchers.")
+	})
 
 	output$laba <- 	renderUI({
 		HTML(sapply(names(labs), 
@@ -57,12 +65,12 @@ shinyServer(function(input, output, session) {
 
 
 	output$x4 = renderPrint({
-	s = input$x3_rows_selected
-	cat('These rows are currently selected:\n\n')
-	print_rows(s, dat)
-	output$makebutton <- renderUI(
-		downloadButton('downloadData', 'Download variable list')
-	)
+		s = input$x3_rows_selected
+		# cat('These rows are currently selected:\n\n')
+		print_rows(s, dat)
+		output$makebutton <- renderUI(
+			downloadButton('downloadData', 'Download variable list')
+		)
 	})
 
 
