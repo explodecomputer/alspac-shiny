@@ -62,17 +62,8 @@ aboutpage <- function()
 					panel_title="News",
 					content=
 						div(
-							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="This existing dataset was updated"
-							),
-							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="This new dataset was added"
-							),
-							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="Something happened"
-							),
-							panel_div(class_type="warning", panel_title="01/01/2017",
-								content="Something happened"
+							panel_div(class_type="warning", panel_title="29/12/2017",
+								content="New web application for searching through the ALSPAC phenotype colletion"
 							)
 						)
 				)
