@@ -1,6 +1,8 @@
 FROM r-base:latest
 
-MAINTAINER Winston Chang "winston@rstudio.com"
+# Based on https://github.com/rocker-org/shiny
+
+MAINTAINER Gibran Hemani "g.hemani@bristol.ac.uk"
 
 # Install dependencies and Download and install shiny server
 RUN apt-get update && apt-get install -y -t unstable \
@@ -10,7 +12,8 @@ RUN apt-get update && apt-get install -y -t unstable \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
     libcairo2-dev/unstable \
-    libxt-dev
+    libxt-dev \
+    libssl-dev
 
 RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubuntu-12.04/x86_64/VERSION -O "version.txt" && \
     VERSION=$(cat version.txt)  && \
@@ -18,15 +21,17 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
     gdebi -n ss-latest.deb && \
     rm -f version.txt ss-latest.deb
 
-RUN R -e "install.packages(c('shiny', 'rmarkdown', 'dplyr', 'ghit', 'shinyBS', 'shinyLP', 'shinythemes', ), repos='https://cran.rstudio.com/')"
+
+RUN R -e "install.packages(c('dplyr', 'devtools', 'plyr'), repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('shiny', 'shinyBS', 'shinyLP', 'shinythemes'), repos='https://cran.rstudio.com/')"
 
 # RUN cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
-    rm -rf /var/lib/apt/lists/*
+#    rm -rf /var/lib/apt/lists/*
 
-RUN sudo su - -c "R -e \"install.packages(c('ghit','shiny','rmarkdown','tidyverse','rgeos','rgdal'))\""
-RUN sudo su - -c "R -e \"ghit::install_github('explodecomputer/alspac')\""
-RUN sudo su - -c "R -e \"ghit::install_github('rstudio/DT')\"" 
-RUN sudo su - -c "R -e \"ghit::install_github('explodecomputer/shinyTypeahead')\"" 
+# RUN sudo su - -c "R -e \"install.packages(c('ghit','shiny','rmarkdown','tidyverse','rgeos','rgdal'))\""
+RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/alspac')\""
+RUN sudo su - -c "R -e \"devtools::install_github('rstudio/DT')\"" 
+RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/shinyTypeahead')\"" 
 
 
 EXPOSE 3838

@@ -17,4 +17,4 @@ docker build -t alspac-shiny:latest .
 # run container
 docker stop alspac-shiny || true
 docker rm alspac-shiny || true
-docker run -d --name alspac-shiny -p 8001:3838 --restart=always alspac-shiny:latest
+docker run -d --name alspac-shiny -p 8010:3838 --restart=always alspac-shiny:latest
