@@ -14,7 +14,11 @@ aboutpage <- function()
 		div(
 			class="jumbotron", 
 			position="bottom",
-			h1("Search for variables in the ALSPAC data dictionary")
+			h1("Search for variables in the ALSPAC data dictionary"),
+			p(
+				tags$strong("App version: "), "0.1.0", tags$br(),
+				tags$strong("Data version: "), "0.1.0"
+			)
 			# typeaheadInput("typeahead_search", "Search", "", choices=dat$lab, items=20, minLength=2)
 		),
 
@@ -121,7 +125,7 @@ variablespage <- function()
 shinyUI(navbarPage(
 
 	id="mainnav",
-	title=div("ALSPAC data dictionary"),
+	title="ALSPAC data dictionary",
 	inverse = FALSE, # for diff color view
 	theme = shinytheme("united"),
 
