@@ -25,20 +25,17 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
 RUN R -e "install.packages(c('dplyr', 'devtools', 'plyr'), repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages(c('shiny', 'shinyBS', 'shinyLP', 'shinythemes'), repos='https://cran.rstudio.com/')"
 
-# RUN cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
-#    rm -rf /var/lib/apt/lists/*
-
-# RUN sudo su - -c "R -e \"install.packages(c('ghit','shiny','rmarkdown','tidyverse','rgeos','rgdal'))\""
-RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/alspac')\""
-RUN sudo su - -c "R -e \"devtools::install_github('rstudio/DT')\"" 
-RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/shinyTypeahead')\"" 
-
-
-EXPOSE 3838
 
 RUN rm -r /srv/shiny-server/*
 RUN mkdir -p /srv/shiny-server/
 COPY . /srv/shiny-server/
+
+RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/alspac')\""
+RUN sudo su - -c "R -e \"devtools::install_github('rstudio/DT')\"" 
+RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/shinyTypeahead')\"" 
+
+EXPOSE 3838
+
 
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 
