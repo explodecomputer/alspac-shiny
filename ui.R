@@ -39,7 +39,7 @@ aboutpage <- function()
 						fluidRow(column(12,
 							tags$p("For more than two decades clinic and questionnaire data has been collected from the participants."),
 							tags$p("This search tool is a quick and abridged version of a much more extensive data dictionary. You can find a lot more detail about these data", tags$a("here", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
-							HTML("<a style='background' href='http://www.bristol.ac.uk/alspac/researchers/our-data/'>Main data page</a>")
+							HTML("<button class='btn btn-default action-button' onclick=\"window.location.href='http://www.bristol.ac.uk/alspac/researchers/our-data/'\">Main data page</button>")
 						)))
 				))),
 
