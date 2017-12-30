@@ -14,7 +14,7 @@ aboutpage <- function()
 		div(
 			class="jumbotron", 
 			position="bottom",
-			h1("Search for variables in the ALSPAC data dictionary"),
+			h1("Search for variables collected in the ALSPAC study"),
 			p(
 				tags$strong("App version: "), paste0(paste(scan("version.txt", what=character())[1], collapse=" ")," (", format(as.Date(file.info("version.txt")$mtime,), "%d %B %Y"), ")"), tags$br(),
 				tags$strong("Data version: "), as.character(packageVersion('alspac'))
@@ -33,13 +33,13 @@ aboutpage <- function()
 							fluidRow(
 								column(12, 
 							tags$p("The Avon Longitudinal Study of Parents and Children (ALSPAC), also known as Children of the 90s, is a world-leading birth cohort study, charting the health of 14,500 families in the Bristol area. You can find full information about the cohort ", tags$a("here", href="https://www.bristol.ac.uk/alspac/")),
-							HTML("<a class='btn btn-default action-button' href='https://www.bristol.ac.uk/alspac/' target='_blank'>ALSPAC webpage</a>"),
+							HTML("<button class='btn btn-default action-button' onclick=\"window.location.href='https://www.bristol.ac.uk/alspac/'\">ALSPAC webpage</button>"),
 							tags$p()
 						)),
 						fluidRow(column(12,
 							tags$p("For more than two decades clinic and questionnaire data has been collected from the participants."),
-							tags$p("This search tool is a quick and abridged version of a much more extensive data dictionary. You can find a lot more detail abou these data", tags$a("here", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
-							HTML("<a class='btn btn-default action-button' href='http://www.bristol.ac.uk/alspac/researchers/our-data/' target='_blank'>Main data page</a>")
+							tags$p("This search tool is a quick and abridged version of a much more extensive data dictionary. You can find a lot more detail about these data", tags$a("here", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
+							HTML("<a style='background' href='http://www.bristol.ac.uk/alspac/researchers/our-data/'>Main data page</a>")
 						)))
 				))),
 
@@ -50,7 +50,7 @@ aboutpage <- function()
 						div(
 							uiOutput("variablecount"),
 							tags$p("This website is a wrapper for the ALSPAC R package, which can be found ", tags$a("here", href="https://github.com/explodecomputer/alspac"), ". Direct users can use the R package to find and extract ALSPAC phenotype data."),
-							tags$p("Use this website to search through the variables, obtain their identifiers and number of available samples."),
+							tags$p("Use this website to search through the variables, obtain their identifiers and the number of records with that measure"),
 							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require."),
 							bsButton(inputId="variablespage", label="Search variables")
 						)
@@ -63,7 +63,7 @@ aboutpage <- function()
 					content=
 						div(
 							panel_div(class_type="warning", panel_title="29/12/2017",
-								content="New web application for searching through the ALSPAC phenotype colletion"
+								content="New web application for searching through the ALSPAC phenotype collection"
 							)
 						)
 				)
@@ -116,9 +116,10 @@ variablespage <- function()
 shinyUI(navbarPage(
 
 	id="mainnav",
-	title="ALSPAC data dictionary",
+	title="ALSPAC variables search tool",
 	inverse = FALSE, # for diff color view
-	theme = shinytheme("united"),
+	theme = "alspac-united.css",
+	# theme = shinytheme("united"),
 
 	aboutpage(),
 	variablespage()

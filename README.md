@@ -54,3 +54,12 @@ Filter by dataset - have an inventory of datasets including their details.
 
 Link to pdfs
 
+## Notes
+
+### Colours
+
+- http://www.color-hex.com/color/c9002f
+- ALSPAC background colour: #c9002f
+- Selected colour: #7d001d
+- Hover colour: #960023
+
