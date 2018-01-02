@@ -100,7 +100,7 @@ variablespage <- function()
 					column(12, 
 						h3("Instructions"),
 						p("Use the search box to filter on keywords or terms. Click on rows to select those variables. Click the Download button to download a csv of the variables that you have selected."),
-						p("If there is anything you cannot find, please just email our team at", tags$a("alspac-exec@bristol.ac.uk", href="mailto:alspac-exec@bristol.ac.uk"), "or consult the ", tags$a("data dictionary.", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
+						p("If there is anything you cannot find, please just email our team at", tags$a("ALSPAC-data@bristol.ac.uk", href="mailto:alspac-exec@bristol.ac.uk"), "or consult the ", tags$a("data dictionary.", href="http://www.bristol.ac.uk/alspac/researchers/our-data/")),
 						p("These rows are currently selected:")
 					)
 				),
