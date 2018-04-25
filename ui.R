@@ -49,7 +49,6 @@ aboutpage <- function()
 					content=
 						div(
 							uiOutput("variablecount"),
-							tags$p("This website is a wrapper for the ALSPAC R package, which can be found ", tags$a("here", href="https://github.com/explodecomputer/alspac"), ". Direct users can use the R package to find and extract ALSPAC phenotype data."),
 							tags$p("Use this website to search through the variables, obtain their identifiers and the number of records with that measure"),
 							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require."),
 							bsButton(inputId="variablespage", label="Search variables")
@@ -62,6 +61,17 @@ aboutpage <- function()
 					panel_title="News",
 					content=
 						div(
+							panel_div(class_type="warning", panel_title="25/04/2018",
+								content=tags$p("Updates have been made to the following variable collections:",
+									tags$ul(
+										tags$li("Focus@7"),
+										tags$li("Focus@8"),
+										tags$li("Focus@9"),
+										tags$li("Focus 10"),
+										tags$li("Focus 11")
+									)
+								)
+							),
 							panel_div(class_type="warning", panel_title="29/12/2017",
 								content="New web application for searching through the ALSPAC phenotype collection"
 							)
