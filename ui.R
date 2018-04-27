@@ -9,6 +9,10 @@ library(shinythemes)
 aboutpage <- function()
 {
 	tabPanel(title="About", value="aboutpage", icon = icon("cog"),
+		tags$head(
+			includeScript("https://www.googletagmanager.com/gtag/js?id=UA-53610054-3"),
+			includeScript("google-analytics.js")
+		),
 
 		# Jumbotron
 		div(
@@ -133,7 +137,6 @@ shinyUI(navbarPage(
 	inverse = FALSE, # for diff color view
 	theme = "alspac-united.css",
 	# theme = shinytheme("united"),
-
 	aboutpage(),
 	variablespage()
 
