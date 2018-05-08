@@ -30,6 +30,7 @@ RUN rm -r /srv/shiny-server/*
 RUN mkdir -p /srv/shiny-server/
 COPY . /srv/shiny-server/
 
+RUN echo "hello"
 RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/alspac')\""
 RUN sudo su - -c "R -e \"devtools::install_github('rstudio/DT')\"" 
 RUN sudo su - -c "R -e \"devtools::install_github('explodecomputer/shinyTypeahead')\"" 
@@ -38,5 +39,6 @@ EXPOSE 3838
 
 
 COPY shiny-server.sh /usr/bin/shiny-server.sh
+COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 
 CMD ["/usr/bin/shiny-server.sh"]
