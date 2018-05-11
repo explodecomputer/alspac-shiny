@@ -104,34 +104,34 @@ aboutpage <- function()
 				panel_div(
 					class_type="primary",
 					panel_title="News",
-					content=div(parse_news(system.file("NEWS.md", package="alspac")))
-						# div(
-						# 	panel_div(class_type="warning", panel_title="11/05/2018",
-						# 		content=tags$p("Updates have been made to the following variable collections:",
-						# 			tags$ul(
-						# 				tags$li("Child_bloods_r3a"),
-						# 				tags$li("FOM4_2a"),
-						# 				tags$li("Father_metabolomics_1a"),
-						# 				tags$li("mum_metabolomics_2a")
-						# 			)
-						# 		)
-						# 	),
+					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
+						content=div(
+							panel_div(class_type="warning", panel_title="11/05/2018",
+								content=tags$p("Updates have been made to the following variable collections:",
+									tags$ul(
+										tags$li("Child_bloods_r3a"),
+										tags$li("FOM4_2a"),
+										tags$li("Father_metabolomics_1a"),
+										tags$li("mum_metabolomics_2a")
+									)
+								)
+							),
 
-						# 	panel_div(class_type="warning", panel_title="25/04/2018",
-						# 		content=tags$p("Updates have been made to the following variable collections:",
-						# 			tags$ul(
-						# 				tags$li("Focus@7"),
-						# 				tags$li("Focus@8"),
-						# 				tags$li("Focus@9"),
-						# 				tags$li("Focus 10"),
-						# 				tags$li("Focus 11")
-						# 			)
-						# 		)
-						# 	),
-						# 	panel_div(class_type="warning", panel_title="29/12/2017",
-						# 		content="New web application for searching through the ALSPAC phenotype collection"
-						# 	)
-						# )
+							panel_div(class_type="warning", panel_title="25/04/2018",
+								content=tags$p("Updates have been made to the following variable collections:",
+									tags$ul(
+										tags$li("Focus@7"),
+										tags$li("Focus@8"),
+										tags$li("Focus@9"),
+										tags$li("Focus 10"),
+										tags$li("Focus 11")
+									)
+								)
+							),
+							panel_div(class_type="warning", panel_title="29/12/2017",
+								content="New web application for searching through the ALSPAC phenotype collection"
+							)
+						)
 				)
 			)
 		),
