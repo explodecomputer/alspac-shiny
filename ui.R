@@ -6,6 +6,47 @@ library(alspac)
 library(shinythemes)
 
 
+processFile = function(filepath)
+{
+    l <- list()
+    i <- 1
+    con = file(filepath, "r")
+    while ( TRUE ) {
+        line = readLines(con, n = 1)
+        if ( length(line) == 0 )
+        {
+            break
+        }
+        l[[i]] <- line
+        i <- i + 1
+    }
+    close(con)
+    return(unlist(l))
+}
+
+convert_item_to_html <- function(item)
+{
+    title <- gsub("# ", "", item[1])
+    body <- markdown::markdownToHTML(text=paste(item[-1], collapse="\n"), fragment.only = TRUE)
+    Encoding(body) <- "UTF-8"
+    body <- HTML(body)
+    return(panel_div(class_type = "warning", panel_title = title, content = body))
+}
+
+parse_news <- function(path)
+{
+    x <- processFile(path)
+    item_starts <- grep("^# ", x)
+    item_ends <- c(item_starts[-1] - 1, length(x))
+    l <- list()
+    for(i in 1:length(item_starts))
+    {
+        l[[i]] <- convert_item_to_html(x[item_starts[i]:item_ends[i]])
+    }
+    return(l)
+}
+
+
 aboutpage <- function()
 {
 	tabPanel(title="About", value="aboutpage", icon = icon("cog"),
@@ -63,23 +104,34 @@ aboutpage <- function()
 				panel_div(
 					class_type="primary",
 					panel_title="News",
-					content=
-						div(
-							panel_div(class_type="warning", panel_title="25/04/2018",
-								content=tags$p("Updates have been made to the following variable collections:",
-									tags$ul(
-										tags$li("Focus@7"),
-										tags$li("Focus@8"),
-										tags$li("Focus@9"),
-										tags$li("Focus 10"),
-										tags$li("Focus 11")
-									)
-								)
-							),
-							panel_div(class_type="warning", panel_title="29/12/2017",
-								content="New web application for searching through the ALSPAC phenotype collection"
-							)
-						)
+					content=div(parse_news(system.file("NEWS.md", package="alspac")))
+						# div(
+						# 	panel_div(class_type="warning", panel_title="11/05/2018",
+						# 		content=tags$p("Updates have been made to the following variable collections:",
+						# 			tags$ul(
+						# 				tags$li("Child_bloods_r3a"),
+						# 				tags$li("FOM4_2a"),
+						# 				tags$li("Father_metabolomics_1a"),
+						# 				tags$li("mum_metabolomics_2a")
+						# 			)
+						# 		)
+						# 	),
+
+						# 	panel_div(class_type="warning", panel_title="25/04/2018",
+						# 		content=tags$p("Updates have been made to the following variable collections:",
+						# 			tags$ul(
+						# 				tags$li("Focus@7"),
+						# 				tags$li("Focus@8"),
+						# 				tags$li("Focus@9"),
+						# 				tags$li("Focus 10"),
+						# 				tags$li("Focus 11")
+						# 			)
+						# 		)
+						# 	),
+						# 	panel_div(class_type="warning", panel_title="29/12/2017",
+						# 		content="New web application for searching through the ALSPAC phenotype collection"
+						# 	)
+						# )
 				)
 			)
 		),
