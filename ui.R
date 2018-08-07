@@ -105,7 +105,7 @@ aboutpage <- function()
 					class_type="primary",
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
-						coxntent=div(
+						content=div(
 							panel_div(class_type="warning", panel_title="07/08/2018",
 								content=tags$p("Updates have been made to the following variable collections:",
 									tags$ul(
