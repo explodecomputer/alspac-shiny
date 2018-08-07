@@ -105,7 +105,21 @@ aboutpage <- function()
 					class_type="primary",
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
-						content=div(
+						coxntent=div(
+							panel_div(class_type="warning", panel_title="07/08/2018",
+								content=tags$p("Updates have been made to the following variable collections:",
+									tags$ul(
+										tags$li("j_5a"),
+										tags$li("CCT_1b"),
+										tags$li("T_1c"),
+										tags$li("n_r1b"),
+										tags$li("h_6d"),
+										tags$li("ta_2a"),
+										tags$li("tc_2a")
+									)
+								)
+							),
+
 							panel_div(class_type="warning", panel_title="11/05/2018",
 								content=tags$p("Updates have been made to the following variable collections:",
 									tags$ul(
