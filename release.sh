@@ -12,7 +12,7 @@ version=`cat version.txt | cut -d " " -f 1`
 echo "version: $version"
 
 # run build
-docker build -t alspac-shiny:latest .
+docker build -t alspac-shiny:latest . --build-arg CACHE_DATE="$(date)"
 
 # run container
 docker stop alspac-shiny || true
