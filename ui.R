@@ -106,7 +106,7 @@ aboutpage <- function()
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
 						content=div(
-							panel_div(class_type="warning", panel_title="10/06/2018",
+							panel_div(class_type="warning", panel_title="10/06/2020",
 								content=tags$p("COVID questionnaire data now available:",
 									tags$ul(
 										tags$li("COVID1_Mum_1a - D1171_COVID1_G0Mum - The G0 mother's COVID1 questionnaire data (457 variables)"),
