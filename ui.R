@@ -106,6 +106,17 @@ aboutpage <- function()
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
 						content=div(
+							panel_div(class_type="warning", panel_title="10/06/2018",
+								content=tags$p("COVID questionnaire data now available:",
+									tags$ul(
+										tags$li("COVID1_Mum_1a - D1171_COVID1_G0Mum - The G0 mother's COVID1 questionnaire data (457 variables)"),
+										tags$li("COVID1_G0partner_1a - D1270_COVID1_G0Dad - The G0 partner/father's COVID1 questionnaire data (457 variables)."),
+										tags$li("COVID1_YP_1a - D1472_COVID1_YP - The G1 YP's COVID1 questionnaire data (459 variables)."),
+										tags$li("COVID1_YPpartner_1a - D1473_COVID1_YPP - The G1 YP's partner's COVID1 questionnaire data (459 variables). Note that this dataset is not openly available due to low n, but researchers can request it - Please contact ALSPAC if you are interested in using this data.")
+									)
+								)
+							),
+
 							panel_div(class_type="warning", panel_title="07/08/2018",
 								content=tags$p("Updates have been made to the following variable collections:",
 									tags$ul(
