@@ -49,8 +49,8 @@ parse_news <- function(path)
 
 aboutpage <- function()
 {
-	tabPanel(title="About", value="aboutpage", icon = icon("cog"),
-		tags$head(
+	tabPanel(title="About", value="aboutpage", icon = icon("cog"), # nolint
+		tags$head( # nolint
 			includeScript("https://www.googletagmanager.com/gtag/js?id=UA-53610054-3"),
 			includeScript("google-analytics.js")
 		),
@@ -106,6 +106,18 @@ aboutpage <- function()
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
 						content=div(
+							panel_div(class_type="warning", panel_title="12/11/2021",
+									content=div(tags$p("Child-based Deprivation Indices & urban/rural status:",
+											tags$ul(
+													tags$li("January timepoints 2015-2021, collection timepoints for: F24, TD, TE, CCXE, CCXF, YPA, YPB, YPC, YPD, YPE, YPF, COVID1, COVID2, COVID3, and IMD2015 tied to all timepoints.")
+											)
+									),
+									tags$p("Serology 2 dataset:",
+											tags$ul(
+													tags$li("This is the results of the second serology test sent out between 9-11th April 2021. Data note with further details is available here: ", tags$a("https://wellcomeopenresearch.org/articles/6-283", href="https://wellcomeopenresearch.org/articles/6-283"), ".")
+											)
+									)
+							)),
 							panel_div(class_type="warning", panel_title="10/06/2020",
 								content=tags$p("COVID questionnaire data now available:",
 									tags$ul(
