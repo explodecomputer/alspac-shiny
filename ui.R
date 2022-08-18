@@ -1,7 +1,6 @@
 library(shiny)
 library(shinyBS)
 library(shinyLP)
-library(shinyTypeahead)
 library(alspac)
 library(shinythemes)
 
@@ -49,7 +48,7 @@ parse_news <- function(path)
 
 aboutpage <- function()
 {
-	tabPanel(title="About", value="aboutpage", icon = icon("cog"), # nolint
+	tabPanel(title="About", value="aboutpage", icon = icon("cog", verify_fa=FALSE), # nolint
 		tags$head( # nolint
 			includeScript("https://www.googletagmanager.com/gtag/js?id=UA-53610054-3"),
 			includeScript("google-analytics.js")
@@ -64,7 +63,6 @@ aboutpage <- function()
 				tags$strong("App version: "), paste0(paste(scan("version.txt", what=character())[1], collapse=" ")," (", format(as.Date(file.info("version.txt")$mtime,), "%d %B %Y"), ")"), tags$br(),
 				tags$strong("Data version: "), as.character(packageVersion('alspac'))
 			)
-			# typeaheadInput("typeahead_search", "Search", "", choices=dat$lab, items=20, minLength=2)
 		),
 
 		# Main body
@@ -106,6 +104,20 @@ aboutpage <- function()
 					panel_title="News",
 					# content=div(parse_news(system.file("NEWS.md", package="alspac")))
 						content=div(
+							panel_div(class_type="warning", panel_title="03/08/2022",
+									content=div(tags$p("COVID6:",
+											tags$ul(
+													tags$li("This is the latest set of questions relating to COVID for G0 and G1 participants collected during 29th April-12th May 2022. This questionnaire was available in online format only. It was one part of a triple data collection along with a second round of antibody testing and CAMCOG cognitive testing – results for both will be announced separately.")
+											)
+									)
+							)),
+							panel_div(class_type="warning", panel_title="21/07/2022",
+									content=div(tags$p("COVID5:",
+											tags$ul(
+													tags$li("This is the latest set of questions relating to COVID for G0 and G1 participants collected during July-December 2021.")
+											)
+									)
+							)),
 							panel_div(class_type="warning", panel_title="12/11/2021",
 									content=div(tags$p("Child-based Deprivation Indices & urban/rural status:",
 											tags$ul(
@@ -181,7 +193,7 @@ aboutpage <- function()
 
 variablespage <- function()
 {
-	tabPanel(title="Variables", value="variablespage", icon = icon("search"),
+	tabPanel(title="Variables", value="variablespage", icon = icon("search", verify_fa=FALSE),
 		fluidRow(
 			column(9,
 				# fluidRow(
