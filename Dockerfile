@@ -12,7 +12,6 @@ RUN mkdir -p /srv/shiny-server/
 COPY . /srv/shiny-server/
 
 
-RUN sudo su - -c "R -e \"remotes::install_github('explodecomputer/shinyTypeahead')\"" 
 
 ARG CACHE_DATE
 RUN sudo su - -c "R -e \"remotes::install_github('explodecomputer/alspac')\""
