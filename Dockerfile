@@ -4,7 +4,7 @@ FROM rocker/shiny-verse
 
 MAINTAINER Gibran Hemani "g.hemani@bristol.ac.uk"
 
-RUN R -e "install.packages(c('shinyBS', 'shinyLP', 'shinythemes', 'DT'), repos='https://cran.rstudio.com/')"
+RUN R -e "install.packages(c('shinyBS', 'shinyLP', 'shinythemes', 'DT', 'markdown'), repos='https://cran.rstudio.com/')"
 
 
 RUN rm -r /srv/shiny-server/*

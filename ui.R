@@ -3,6 +3,7 @@ library(shinyBS)
 library(shinyLP)
 library(alspac)
 library(shinythemes)
+library(markdown)
 
 
 processFile = function(filepath)
