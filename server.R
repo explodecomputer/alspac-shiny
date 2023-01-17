@@ -4,13 +4,14 @@ library(alspac)
 library(dplyr)
 
 data(current)
-data(useful)
+# data(useful)
 
 
 current <- subset(current, ! name %in% c("aln", "qlet"), select=c(obj, name, lab, counts, type, cat1, cat2, cat3, cat4))
-useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(obj, name, lab, counts, type, cat1, cat2, cat3, cat4))
+# useful <- subset(useful, ! name %in% c("aln", "qlet"), select=c(obj, name, lab, counts, type, cat1, cat2, cat3, cat4))
 
-dat <- rbind(current, useful)
+# dat <- rbind(current, useful)
+dat <- current
 dat$obj <- gsub(".dta", "", dat$obj)
 names(dat) <- c("Dataset", "Variable", "Details", "Counts", "Type", "Release", "Label 1", "Label 2", "Label 3")
 
