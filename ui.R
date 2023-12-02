@@ -97,7 +97,11 @@ aboutpage <- function()
 							tags$p("You can use download lists of selected variables. For direct users, this can be used to extract variables directly. Alternatively, add this list to your data request form to specify the data that you require."),
 							bsButton(inputId="variablespage", label="Search variables")
 						)
-				)))
+				))),
+
+				fluidRow(column(12, 
+					p("Source code at ", tags$a("https://github.com/explodecomputer/alspac-shiny", href="https://github.com/explodecomputer/alspac-shiny"))
+				))
 			),
 			column(6,
 				panel_div(
@@ -105,10 +109,7 @@ aboutpage <- function()
 					panel_title="News",
 					content=div(parse_news(system.file("NEWS.md", package="alspac"))))
 			)
-		),
-		fluidRow(column(12, 
-			p("Source code at ", tags$a("https://github.com/explodecomputer/alspac-shiny", href="https://github.com/explodecomputer/alspac-shiny"))
-		))
+		)
 	)
 }
 
