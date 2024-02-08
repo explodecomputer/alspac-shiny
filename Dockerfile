@@ -1,24 +1,17 @@
-FROM --platform=linux/amd64 rocker/shiny:latest
+FROM rocker/shiny-verse
 
 LABEL maintainer="Gibran Hemani g.hemani@bristol.ac.uk"
 # Based on https://github.com/rocker-org/shiny
 
-RUN apt-get update -qq && apt-get -y --no-install-recommends install \
-    libxml2-dev \
-    libcairo2-dev \
-    libsqlite3-dev \
-    libmariadbd-dev \
-    libpq-dev \
-    libssh2-1-dev \
-    unixodbc-dev \
-    libcurl4-openssl-dev \
-    libssl-dev
-
 ## update system libraries
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get clean
-
+    apt-get clean && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get install -y gcc gcc-4.9. && \
+    apt-get upgrade -y libstdc++6 && \
+    apt-get -y dist-upgrade
 
 COPY . ./app
 ## renv.lock file
