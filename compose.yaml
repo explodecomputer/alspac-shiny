@@ -1,0 +1,4 @@
+services:
+  man:
+    build: .
+    image: explodecomputer/alspac-shiny:latest
