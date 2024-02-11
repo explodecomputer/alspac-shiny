@@ -1,6 +1,9 @@
 name: Build and push docker image
 
 on:
+  repository_dispatch:
+    types:
+      - r-alspac-update
   push:
     branches:
       - 'master'
