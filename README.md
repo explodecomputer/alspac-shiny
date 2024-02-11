@@ -55,6 +55,11 @@ docker run -d \
   alspac-shiny
 ```
 
+Notes on CI/CD (not currently working)
+
+- https://gist.github.com/Daniel-ltw/552b90800b07c22e4a83dfa68ada6318
+- https://github.com/orgs/community/discussions/26323
+
 ### LEGACY: On Shiny server:
 
 ```bash
