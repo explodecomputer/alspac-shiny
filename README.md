@@ -29,7 +29,31 @@ cd alspac-shiny
 ./release.sh
 ```
 
+## Deployment
 
+Every time a commit is pushed to the repo the docker image is rebuilt and pushed to https://hub.docker.com/repository/docker/explodecomputer/alspac-shiny/general.
+
+You can trigger rebuilding (e.g. if the [explodecomputer/alspac](https://github.com/explodecomputer/alspac) package is updated) by going to `Actions`, clicking the most recent job and clicking `Re-run`. 
+
+Then deploy using e.g.:
+
+```
+docker run -d \
+  --name alspac-shiny \
+  -p 8010:3838 \
+  --restart=always \
+  explodecomputer/alspac-shiny:latest
+```
+
+You can setup automatic updates with this:
+
+```
+docker run -d \
+  --name alspac-shiny-watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower \
+  alspac-shiny
+```
 
 ### LEGACY: On Shiny server:
 
