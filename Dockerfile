@@ -10,7 +10,6 @@ RUN apt-get update && \
         libmariadbd-dev \
         libpq-dev \
         libssh2-1-dev \
-        libcurl4-gnutls-dev \
         libcurl4-openssl-dev \
         unixodbc-dev \
         libxml2-dev \
@@ -46,7 +45,7 @@ RUN Rscript -e 'install.packages("renv", repos = "https://packagemanager.posit.c
 RUN Rscript -e 'renv::restore(repos = c("https://packagemanager.posit.co/cran/__linux__/jammy/latest", "https://cloud.r-project.org"))'
 
 ARG CACHE_DATE
-RUN sudo su - -c "R -e \"remotes::install_github('explodecomputer/alspac', repos = c('https://mrcieu.r-universe.dev/bin/linux/jammy/4.3/', 'https://packagemanager.posit.co/cran/__linux__/jammy/latest', 'https://cloud.r-project.org'))\""
+RUN sudo su - -c "R -e \"renv::install('explodecomputer/alspac', repos = c('https://mrcieu.r-universe.dev/bin/linux/jammy/4.3/', 'https://packagemanager.posit.co/cran/__linux__/jammy/latest', 'https://cloud.r-project.org'))\""
 
 # expose port
 EXPOSE 3838
